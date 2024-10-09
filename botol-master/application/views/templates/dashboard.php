@@ -137,8 +137,8 @@ $segment = $this->uri->segment(1);
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= ($segment == 'piutang') ? "active":"" ?>">
-                <a class="nav-link pb-0" href="<?= base_url('piutang'); ?>">
+            <li class="nav-item <?= ($segment == 'dataaset') ? "active":"" ?>">
+                <a class="nav-link pb-0" href="<?= base_url('dataaset'); ?>">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Data Asset</span>
                 </a>
