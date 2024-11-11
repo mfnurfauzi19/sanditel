@@ -146,22 +146,36 @@ $segment = $this->uri->segment(1);
             <div class="sidebar-heading">
                 Asset
             </div>
-
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= ($segment == 'data_asset') ? "active":"" ?>">
                 <a class="nav-link pb-0" href="<?= base_url('data_asset'); ?>">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Data Asset</span>
                 </a>
             </li>
-
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= ($segment == 'peminjaman') ? "active":"" ?>">
-                <a class="nav-link" href="<?= base_url('peminjaman'); ?>">
+                <a class="nav-link pb-0" href="<?= base_url('peminjaman'); ?>">
                 <i class="fas fa-hand-holding"></i>
                 <span>Peminjaman Asset </span>
                 </a>
             </li>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item <?= ($segment == 'stock_opname') ? "active":"" ?>">
+                <a class="nav-link pb " href="<?= base_url('stock_opname'); ?>">
+                    <i class="fas fa-solid fa-box-open"></i>
+                    <span>Stock Opname</span>
+                </a>
+            </li>
+
+    </li>
+  
+            <!-- Nav Item - Dashboard -->
+           
+            
+
+          
+
+           
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -271,6 +285,8 @@ $segment = $this->uri->segment(1);
 <!-- Muat konten spesifik dari halaman lain -->
 <?= isset($content_view) ? $this->load->view($content_view, null, true) : ''; ?>
 
+
+
 <footer>
     <!-- Footer content -->
 </footer>
@@ -284,7 +300,7 @@ $segment = $this->uri->segment(1);
             <footer class="sticky-footer bg-light">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Aplikasi Pengadaan Barang 2019 &bull; by <?= anchor('https://www.arfan.id', 'Arfan.id'); ?></span>
+                        <span>Copyright &copy; Aplikasi Pengadaan Barang 2024 &bull; by fauzi.id</span>
                     </div>
                 </div>
             </footer>

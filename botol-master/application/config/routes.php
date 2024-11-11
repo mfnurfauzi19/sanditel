@@ -97,5 +97,17 @@ $route['peminjaman/delete/(:num)'] = 'Peminjaman/delete/$1';
 $route['pengajuan_barang/add_to_cart'] = 'PengajuanBarang/add_to_cart';
 $route['pengajuan_barang/remove/(:num)'] = 'PengajuanBarang/remove/$1';
 
+$route['stock_opname'] = 'StockOpname/index';
+$route['stock_opname/save'] = 'StockOpname/save';
+
+// file application/config/routes.php
+
+$route['dataasset/save_barcode'] ['POST'] = 'dataasset/save_barcode';
+
+
+
+
+
+
 
 

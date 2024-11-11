@@ -15,20 +15,22 @@ class Asset_model extends CI_Model
     }
 
     // Fungsi untuk mengambil semua data aset
-    public function get_all_assets() {
+    public function get_all_assets()
+    {
         return $this->db->get('assets')->result_array(); // Mengambil semua data dari tabel
     }
 
     // Fungsi untuk mengambil aset berdasarkan merk kode
     public function get_asset_by_merk_kode($merk_kode)
     {
-        $this->db->where('TRIM(merk_kode)', trim($merk_kode)); // Menghapus spasi sebelum mencari
+        $merk_kode = trim($merk_kode);  // Trim di PHP, pastikan input bersih
+        $this->db->where('merk_kode', $merk_kode); // Menghindari penggunaan TRIM di SQL
         $query = $this->db->get('assets');
-
+        
         if ($query->num_rows() > 0) {
             return $query->row_array();
         }
-
+        
         return null;
     }
 
@@ -43,18 +45,26 @@ class Asset_model extends CI_Model
     {
         $this->db->where('id', $id);
         if ($this->db->update('assets', $data)) {
-            return true; // Berhasil
+            return $this->db->affected_rows() > 0; // Pastikan ada perubahan data
         } else {
             log_message('error', 'Gagal memperbarui asset: ' . $this->db->last_query());
             return false; // Gagal
         }
     }
 
-    public function update_asset_id($old_id, $new_id)
+    // Fungsi untuk memperbarui barcode pada aset
+    public function update_barcode($id, $barcode_text)
     {
-        $this->db->set('id', $new_id);
-        $this->db->where('id', $old_id);
-        return $this->db->update('assets'); // Menyesuaikan nama tabel jika diperlukan
+        $data = array(
+            'barcode' => $barcode_text
+        );
+        return $this->db->update('assets', $data, array('id' => $id));
+    }
+
+    // Fungsi untuk memperbarui status barcode sudah digenerate
+    public function update_barcode_status($id, $status)
+    {
+        $this->db->update('assets', ['barcode_generated' => $status], ['id' => $id]);
     }
 
     // Fungsi untuk menghapus aset
@@ -71,9 +81,10 @@ class Asset_model extends CI_Model
     // Fungsi untuk mengurangi stok sementara
     public function reduce_stock($id, $amount)
     {
+        // Pastikan stok yang akan dikurangi lebih besar dari 0
         $this->db->where('id', $id);
-        $this->db->where('ok >=', $amount); // Pastikan stok cukup
-        $this->db->set('ok', 'ok - ' . (int)$amount, false);
+        $this->db->where('ok >=', $amount); // Cek apakah stok cukup
+        $this->db->set('ok', 'ok - ' . (int)$amount, false); // Mengurangi stok
         
         if ($this->db->update('assets')) {
             return true; // Berhasil mengurangi stok
@@ -83,10 +94,12 @@ class Asset_model extends CI_Model
         }
     }
 
-   
-    
-    
-    
-    
-    
+    // Fungsi untuk menambahkan atau memperbarui asset berdasarkan ID
+    public function update_asset_id($old_id, $new_id)
+    {
+        // Mengubah ID asset
+        $this->db->set('id', $new_id);
+        $this->db->where('id', $old_id);
+        return $this->db->update('assets'); // Menyesuaikan nama tabel jika diperlukan
+    }
 }

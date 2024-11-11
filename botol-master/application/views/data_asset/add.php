@@ -47,7 +47,7 @@
                                     <input type="text" name="nama_asset" class="form-control" placeholder="Nama Asset" required>
                                 </td>
                                 <td>
-                                    <input type="text" name="merk_type" class="form-control" placeholder="Merk/Type" required>
+                                    <input type="text" name="merk_kode" class="form-control" placeholder="Merk/Type" required>
                                 </td>
                                 <td>
                                     <input type="number" name="qty" class="form-control" placeholder="Qty" required>
