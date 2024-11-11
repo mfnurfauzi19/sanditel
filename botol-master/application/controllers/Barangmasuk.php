@@ -49,17 +49,17 @@ class Barangmasuk extends CI_Controller
             $input = $this->input->post(null, true);
     
             // Proses upload file
-            $config['upload_path'] = './uploads/barang_masuk/'; // Direktori tempat file disimpan
-            $config['allowed_types'] = 'jpg|jpeg|png|pdf|docx'; // Jenis file yang diizinkan
-            $config['max_size'] = 2048; // Ukuran maksimal file dalam KB (misal 2MB)
+            // $config['upload_path'] = './uploads/barang_masuk/'; // Direktori tempat file disimpan
+            // $config['allowed_types'] = 'jpg|jpeg|png|pdf|docx'; // Jenis file yang diizinkan
+            // $config['max_size'] = 2048; // Ukuran maksimal file dalam KB (misal 2MB)
     
             $this->load->library('upload', $config);
     
             if ($this->upload->do_upload('file_upload')) {
                 // Jika upload berhasil
-                $fileData = $this->upload->data();
-                $file_name = $fileData['file_name']; // Mendapatkan nama file yang di-upload
-                $input['bukti_pengajuan'] = $file_name; // Simpan nama file di database
+                // $fileData = $this->upload->data();
+                // $file_name = $fileData['file_name']; // Mendapatkan nama file yang di-upload
+                // $input['bukti_pengajuan'] = $file_name; // Simpan nama file di database
     
                 // Insert data ke database
                 $insert = $this->admin->insert('barang_masuk', $input);

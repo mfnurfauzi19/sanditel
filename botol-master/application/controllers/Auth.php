@@ -10,6 +10,41 @@ class Auth extends CI_Controller
         $this->load->model('Auth_model', 'auth');
         $this->load->model('Admin_model', 'admin');
     }
+    // Contoh di Controller Login
+public function login()
+{
+    $this->form_validation->set_rules('username', 'Username', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+
+    if ($this->form_validation->run() == false) {
+        // tampilkan form login lagi jika validasi gagal
+        $this->load->view('auth/login');
+    } else {
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+
+        // Query untuk memverifikasi login
+        $user = $this->User_model->check_user_login($username, $password);
+
+        if ($user) {
+            // Simpan data user ke dalam session
+            $session_data = [
+                'user_id'   => $user->id,
+                'username'  => $user->username,
+                'logged_in' => true,
+            ];
+            $this->session->set_userdata($session_data);
+
+            // Redirect ke dashboard atau halaman lain
+            redirect('dashboard');
+        } else {
+            // jika login gagal, tampilkan pesan error
+            $this->session->set_flashdata('message', 'Username atau password salah.');
+            redirect('login');
+        }
+    }
+}
+
 
     private function _has_login()
     {
@@ -21,49 +56,50 @@ class Auth extends CI_Controller
     public function index()
     {
         $this->_has_login();
-
+    
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
-
+    
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Login Aplikasi';
             $this->template->load('templates/auth', 'auth/login', $data);
         } else {
             $input = $this->input->post(null, true);
-
+    
             $cek_username = $this->auth->cek_username($input['username']);
             if ($cek_username > 0) {
                 $password = $this->auth->get_password($input['username']);
                 if (password_verify($input['password'], $password)) {
                     $user_db = $this->auth->userdata($input['username']);
                     if ($user_db['is_active'] != 1) {
-                        set_pesan('akun anda belum aktif/dinonaktifkan. Silahkan hubungi admin.', false);
+                        set_pesan('Akun anda belum aktif/dinonaktifkan. Silahkan hubungi admin.', false);
                         redirect('login');
                     } else {
                         $userdata = [
                             'user'  => $user_db['id_user'],
-                            'role'  => $user_db['role'],
+                            'role'  => $user_db['role'], // Simpan role pengguna di sini
+                            'username' => $user_db['username'], // Simpan username di sini
                             'timestamp' => time()
                         ];
                         $this->session->set_userdata('login_session', $userdata);
                         redirect('dashboard');
                     }
                 } else {
-                    set_pesan('password salah', false);
+                    set_pesan('Password salah', false);
                     redirect('auth');
                 }
             } else {
-                set_pesan('username belum terdaftar', false);
+                set_pesan('Username belum terdaftar', false);
                 redirect('auth');
             }
         }
     }
-
+    
     public function logout()
     {
         $this->session->unset_userdata('login_session');
 
-        set_pesan('anda telah berhasil logout');
+        set_pesan('Anda telah berhasil logout');
         redirect('auth');
     }
 
@@ -83,17 +119,17 @@ class Auth extends CI_Controller
             $input = $this->input->post(null, true);
             unset($input['password2']);
             $input['password']      = password_hash($input['password'], PASSWORD_DEFAULT);
-            $input['role']          = 'gudang';
-            $input['foto']          = 'user.png';
-            $input['is_active']     = 0;
+            $input['role']          = 'gudang'; // Ganti sesuai kebutuhan
+            $input['foto']          = 'user.png'; // Ganti sesuai kebutuhan
+            $input['is_active']     = 0; // Set akun baru tidak aktif
             $input['created_at']    = time();
 
             $query = $this->admin->insert('user', $input);
             if ($query) {
-                set_pesan('daftar berhasil. Selanjutnya silahkan hubungi admin untuk mengaktifkan akun anda.');
+                set_pesan('Daftar berhasil. Selanjutnya silahkan hubungi admin untuk mengaktifkan akun anda.');
                 redirect('login');
             } else {
-                set_pesan('gagal menyimpan ke database', false);
+                set_pesan('Gagal menyimpan ke database', false);
                 redirect('register');
             }
         }

@@ -52,6 +52,50 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// Auth routes
 $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
 $route['register'] = 'auth/register';
+
+// Data asset routes
+$route['data_asset'] = 'Dataasset/data';
+$route['data_asset/add'] = 'Dataasset/add';
+$route['data_asset/edit/(:num)'] = 'Dataasset/edit/$1'; 
+$route['data_asset/update/(:num)'] = 'Dataasset/update/$1';
+
+// Barcode routes
+$route['barcode/scan'] = 'barcode/scan';
+$route['barcode/process'] = 'barcode/process';
+
+// Data barang routes
+$route['data_barang'] = 'dataBarang/index';
+$route['data_barang/create'] = 'dataBarang/create';
+$route['data_barang/edit/(:num)'] = 'dataBarang/edit/$1';
+$route['data_barang/update/(:num)'] = 'dataBarang/update/$1';
+$route['data_barang/delete/(:num)'] = 'dataBarang/delete/$1';
+
+// Pengajuan barang routes
+$route['pengajuan_barang'] = 'PengajuanBarang/index';
+$route['pengajuan_barang/add'] = 'PengajuanBarang/add';
+$route['pengajuan_barang/edit/(:num)'] = 'PengajuanBarang/edit/$1';
+$route['pengajuan_barang/delete/(:num)'] = 'PengajuanBarang/delete/$1';
+$route['pengajuan_barang/approve/(:num)'] = 'PengajuanBarang/approve/$1';
+$route['pengajuan_barang/process_approval/(:num)'] = 'PengajuanBarang/process_approval/$1';
+$route['pengajuan_barang/process_request'] = 'PengajuanBarang/process_request';
+$route['pengajuan_barang/index/(:any)'] = 'PengajuanBarang/index/$1';
+
+
+// Routes untuk peminjaman barang
+$route['peminjaman'] = 'Peminjaman/index';
+$route['peminjaman/create'] = 'Peminjaman/create';
+$route['peminjaman/edit/(:num)'] = 'Peminjaman/edit/$1';
+$route['peminjaman/update/(:num)'] = 'Peminjaman/update/$1';
+$route['peminjaman/delete/(:num)'] = 'Peminjaman/delete/$1';
+
+
+$route['pengajuan_barang/add_to_cart'] = 'PengajuanBarang/add_to_cart';
+$route['pengajuan_barang/remove/(:num)'] = 'PengajuanBarang/remove/$1';
+
+
+

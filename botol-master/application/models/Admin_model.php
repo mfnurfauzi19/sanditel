@@ -336,4 +336,5 @@ class Admin_model extends CI_Model
         $this->db->join('satuan s', 'b.satuan_id=s.id_satuan');
         return $this->db->get_where('barang b', ['id_barang' => $id])->row_array();
     }
+    
 }

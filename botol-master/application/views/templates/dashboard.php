@@ -99,7 +99,7 @@ $segment = $this->uri->segment(1);
                         <h6 class="collapse-header">Master Barang:</h6>
                         <a class="collapse-item" href="<?= base_url('satuan'); ?>">Satuan Barang</a>
                         <a class="collapse-item" href="<?= base_url('jenis'); ?>">Jenis Barang</a>
-                        <a class="collapse-item" href="<?= base_url('barang'); ?>">Data Barang</a>
+                        <!-- <a class="collapse-item" href="<?= base_url('barang'); ?>">Data Barang</a> -->
                     </div>
                 </div>
             </li>
@@ -112,6 +112,17 @@ $segment = $this->uri->segment(1);
                 Inventory
             </div>
 
+            <li class="nav-item <?= ($segment == 'barang') ? "active":"" ?>">
+                <a class="nav-link pb-0" href="<?= base_url('barang'); ?>">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Data Barang</span>
+                </a>
+            </li>
+            <li class="nav-item <?= ($segment == 'pengajuan_barang') ? "active":"" ?>">
+                <a class="nav-link pb-0" href="<?= base_url('pengajuan_barang'); ?>">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Pengajuan Barang</span>
+                </a>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= ($segment == 'barangmasuk') ? "active":"" ?>">
                 <a class="nav-link pb-0" href="<?= base_url('barangmasuk'); ?>">
@@ -137,18 +148,18 @@ $segment = $this->uri->segment(1);
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= ($segment == 'dataaset') ? "active":"" ?>">
-                <a class="nav-link pb-0" href="<?= base_url('dataaset'); ?>">
+            <li class="nav-item <?= ($segment == 'data_asset') ? "active":"" ?>">
+                <a class="nav-link pb-0" href="<?= base_url('data_asset'); ?>">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Data Asset</span>
                 </a>
             </li>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= ($segment == 'penjualan') ? "active":"" ?>">
-                <a class="nav-link" href="<?= base_url('penjualan'); ?>">
-                    <i class="fas fa-fw fa-dollar-sign"></i>
-                    <span>Penjualan</span>
+            <li class="nav-item <?= ($segment == 'peminjaman') ? "active":"" ?>">
+                <a class="nav-link" href="<?= base_url('peminjaman'); ?>">
+                <i class="fas fa-hand-holding"></i>
+                <span>Peminjaman Asset </span>
                 </a>
             </li>
 
@@ -251,12 +262,19 @@ $segment = $this->uri->segment(1);
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800"><?= isset($title) ? $title : 'Welcome'; ?></h1>
 
-                    <?= $contents; ?>
+<!-- Konten yang ingin ditampilkan -->
+<?= isset($contents) ? $contents : ''; ?>
 
-                </div>
+<!-- Muat konten spesifik dari halaman lain -->
+<?= isset($content_view) ? $this->load->view($content_view, null, true) : ''; ?>
+
+<footer>
+    <!-- Footer content -->
+</footer>
+</div>
                 <!-- /.container-fluid -->
 
             </div>
