@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Nov 2024 pada 02.27
+-- Waktu pembuatan: 11 Nov 2024 pada 13.23
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 7.0.32
 
@@ -34,72 +34,66 @@ CREATE TABLE `assets` (
   `merk_kode` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
   `ok` varchar(50) DEFAULT NULL,
-  `rusak` varchar(50) DEFAULT NULL
+  `rusak` varchar(50) DEFAULT NULL,
+  `barcode` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `assets`
 --
 
-INSERT INTO `assets` (`id`, `nama_asset`, `merk_kode`, `qty`, `ok`, `rusak`) VALUES
-(1, 'Laptop', 'Asus', 10, '6', '4'),
-(2, 'Buku', 'Sidu', 10, '8', '2'),
-(3, 'pulpen', 'snowma', 10, '5', '5'),
-(4, 'Router', 'Mikrotik', 10, '9', '1'),
-(22, 'AP', 'unifi', 10, '8', '2'),
-(23, 'Asset A', 'Merk A', 10, '5', '5'),
-(24, 'Asset', 'Merk', 20, '10', '10'),
-(25, 'Asset C', 'Merk C', 0, '0', '0'),
-(26, 'Asset D', 'Merk D', 15, '7', '8'),
-(27, 'Asset E', 'Merk E', 25, '12', '13'),
-(28, 'Asset F', 'Merk F', 0, '0', '0'),
-(29, 'Asset G', 'Merk G', 5, '2', '3'),
-(30, 'Asset H', 'Merk H', 16, '6', '6'),
-(31, 'Asset I', 'Merk I', 0, '0', '0'),
-(32, 'Asset J', 'Merk J', 18, '9', '9'),
-(33, 'Asset K', 'Merk K', 29, '14', '15'),
-(34, 'Asset L', 'Merk L', 0, '0', '0'),
-(35, 'Asset M', 'Merk M', 16, '8', '8'),
-(36, 'Asset N', 'Merk N', 28, '14', '14'),
-(37, 'Asset O', 'Merk O', 4, '2', '2'),
-(38, 'Asset P', 'Merk P', 19, '9', '10'),
-(39, 'Asset Q', 'Merk Q', 0, '0', '0'),
-(40, 'Asset R', 'Merk R', 32, '16', '16'),
-(41, 'Asset S', 'Merk S', 9, '4', '5'),
-(42, 'Asset T', 'Merk T', 0, '0', '0'),
-(43, 'Asset U', 'Merk U', 3, '1', '2'),
-(44, 'Asset V', 'Merk V', 7, '3', '4'),
-(45, 'Asset W', 'Merk W', 0, '0', '0'),
-(46, 'Asset X', 'Merk X', 13, '6', '7'),
-(47, 'Asset Y', 'Merk Y', 11, '5', '6'),
-(48, 'Asset Z', 'Merk Z', 0, '0', '0'),
-(49, 'Asset AA', 'Merk AA', 2, '1', '1'),
-(50, 'Asset AB', 'Merk AB', 0, '0', '0'),
-(51, 'Asset AC', 'Merk AC', 24, '12', '12'),
-(52, 'Asset AD', 'Merk AD', 1, '0', '1'),
-(53, 'Asset AE', 'Merk AE', 17, '8', '9'),
-(54, 'Asset AF', 'Merk AF', 0, '0', '0'),
-(55, 'Asset AG', 'Merk AG', 30, '15', '15'),
-(56, 'Asset AH', 'Merk AH', 15, '7', '8'),
-(57, 'Asset AI', 'Merk AI', 0, '0', '0'),
-(58, 'Asset AJ', 'Merk AJ', 35, '17', '18'),
-(59, 'Asset AK', 'Merk AK', 5, '2', '3'),
-(60, 'Asset AL', 'Merk AL', 12, '6', '6'),
-(61, 'Asset AM', 'Merk AM', 0, '0', '0'),
-(62, 'Asset AN', 'Merk AN', 18, '9', '9'),
-(63, 'Asset AO', 'Merk AO', 28, '14', '14'),
-(64, 'Asset AP', 'Merk AP', 0, '0', '0'),
-(65, 'Asset AQ', 'Merk AQ', 11, '8', '8'),
-(66, 'Asset AR', 'Merk AR', 28, '14', '14'),
-(67, 'Asset AS', 'Merk AS', 4, '2', '2'),
-(68, 'Asset AT', 'Merk AT', 19, '9', '10'),
-(69, 'Asset AU', 'Merk AU', 8, '4', '4'),
-(70, 'Asset AV', 'Merk AV', 32, '16', '16'),
-(71, 'Asset AW', 'Merk AW', 9, '4', '5'),
-(72, 'Asset AX', 'Merk AX', 23, '11', '12'),
-(73, 'Asset AY', 'Merk AY', 3, '1', '2'),
-(74, 'Asset AZ', 'Merk AZ', 0, '0', '0'),
-(75, 'HO', 'advan', 10, '2', '8');
+INSERT INTO `assets` (`id`, `nama_asset`, `merk_kode`, `qty`, `ok`, `rusak`, `barcode`) VALUES
+(1, 'Asset', 'Merk', 20, '10', '10', 'Merk_1867127387'),
+(2, 'Asset C', 'Merk C', 0, '0', '0', 'Merk C_2585711621'),
+(3, 'Asset D', 'Merk D', 15, '7', '8', 'Merk D_2985140178'),
+(4, 'Asset G', 'Merk G', 5, '2', '3', 'Merk G_3945040357'),
+(5, 'Asset H', 'Merk H', 16, '6', '6', 'Merk H_2731774431'),
+(6, 'Asset I', 'Merk I', 0, '0', '0', NULL),
+(7, 'Asset J', 'Merk J', 18, '9', '9', 'Merk J_4166935097'),
+(8, 'Asset K', 'Merk K', 29, '14', '15', 'Merk K_8859618695'),
+(9, 'Asset L', 'Merk L', 0, '0', '0', NULL),
+(10, 'Asset M', 'Merk M', 16, '8', '8', NULL),
+(11, 'Asset N', 'Merk N', 28, '14', '14', NULL),
+(12, 'Asset O', 'Merk O', 4, '2', '2', NULL),
+(13, 'Asset P', 'Merk P', 19, '9', '10', NULL),
+(14, 'Asset Q', 'Merk Q', 0, '0', '0', NULL),
+(15, 'Asset R', 'Merk R', 32, '16', '16', NULL),
+(16, 'Asset S', 'Merk S', 9, '4', '5', NULL),
+(17, 'Asset T', 'Merk T', 0, '0', '0', NULL),
+(18, 'Asset V', 'Merk V', 7, '3', '4', NULL),
+(19, 'Asset W', 'Merk W', 0, '0', '0', NULL),
+(20, 'Asset X', 'Merk X', 13, '6', '7', NULL),
+(21, 'Asset Y', 'Merk Y', 11, '5', '6', NULL),
+(22, 'Asset Z', 'Merk Z', 0, '0', '0', NULL),
+(23, 'Asset AA', 'Merk AA', 2, '1', '1', NULL),
+(24, 'Asset AB', 'Merk AB', 0, '0', '0', NULL),
+(25, 'Asset AC', 'Merk AC', 24, '12', '12', NULL),
+(26, 'Asset AD', 'Merk AD', 1, '0', '1', NULL),
+(27, 'Asset AE', 'Merk AE', 17, '8', '9', NULL),
+(28, 'Asset AF', 'Merk AF', 0, '0', '0', NULL),
+(29, 'Asset AG', 'Merk AG', 30, '15', '15', NULL),
+(30, 'Asset AH', 'Merk AH', 15, '7', '8', NULL),
+(31, 'Asset AI', 'Merk AI', 0, '0', '0', NULL),
+(32, 'Asset AJ', 'Merk AJ', 35, '17', '18', NULL),
+(33, 'Asset AK', 'Merk AK', 5, '2', '3', NULL),
+(34, 'Asset AL', 'Merk AL', 12, '6', '6', NULL),
+(35, 'Asset AM', 'Merk AM', 0, '0', '0', NULL),
+(36, 'Asset AN', 'Merk AN', 18, '9', '9', NULL),
+(37, 'Asset AO', 'Merk AO', 28, '14', '14', NULL),
+(38, 'Asset AP', 'Merk AP', 0, '0', '0', NULL),
+(39, 'Asset AQ', 'Merk AQ', 11, '8', '8', NULL),
+(40, 'Asset AR', 'Merk AR', 28, '14', '14', NULL),
+(41, 'Asset AS', 'Merk AS', 4, '2', '2', NULL),
+(42, 'Asset AT', 'Merk AT', 19, '9', '10', NULL),
+(43, 'Asset AU', 'Merk AU', 8, '4', '4', NULL),
+(44, 'Asset AV', 'Merk AV', 32, '16', '16', NULL),
+(45, 'Asset AW', 'Merk AW', 9, '4', '5', NULL),
+(46, 'Asset AX', 'Merk AX', 23, '11', '12', NULL),
+(47, 'Asset AY', 'Merk AY', 3, '1', '2', NULL),
+(48, 'Asset AZ', 'Merk AZ', 0, '0', '0', NULL),
+(49, 'HO', 'advan', 10, '2', '8', NULL),
+(50, 'G', 'Mug', 2, '1', '1', NULL),
+(51, 'GUM', 'buble', 10, '5', '5', NULL);
 
 -- --------------------------------------------------------
 
@@ -280,14 +274,6 @@ CREATE TABLE `peminjaman` (
   `peminjam` varchar(255) NOT NULL,
   `departemen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `peminjaman`
---
-
-INSERT INTO `peminjaman` (`id`, `assets_id`, `user_id`, `tanggal_pinjam`, `tanggal_kembali`, `jumlah_pinjam`, `sisa_stok`, `status_pengembalian`, `peminjam`, `departemen`) VALUES
-(35, '24', 0, '2024-11-08', '2024-11-09', '8', NULL, 0, 'admin', 'BIRO ORGANISASI'),
-(36, '1', 0, '2024-11-28', '2024-12-07', '4', NULL, 0, 'User', 'BIRO KESRA');
 
 -- --------------------------------------------------------
 
@@ -545,7 +531,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT untuk tabel `barang_keluar_dtl`
