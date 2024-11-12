@@ -104,6 +104,16 @@ $route['stock_opname/save'] = 'StockOpname/save';
 
 $route['dataasset/save_barcode'] ['POST'] = 'dataasset/save_barcode';
 
+$route['data_asset/index_kategori'] = 'Dataasset/index_kategori';  // Route untuk halaman utama kategori
+$route['data_asset/detail/(:any)'] = 'Dataasset/detail/$1';  // Route untuk detail kategori
+$route['dataasset/tambah_by_kategori'] = 'Dataasset/tambah_by_kategori';
+
+$route['barcode/scan'] = 'barcode/scan';
+$route['barcode/process'] = 'barcode/process';
+
+
+
+
 
 
 

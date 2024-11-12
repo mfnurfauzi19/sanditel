@@ -68,15 +68,7 @@ class Asset_model extends CI_Model
     }
 
     // Fungsi untuk menghapus aset
-    public function delete_asset($id)
-    {
-        if ($this->db->delete('assets', ['id' => $id])) {
-            return true; // Berhasil
-        } else {
-            log_message('error', 'Gagal menghapus asset: ' . $this->db->last_query());
-            return false; // Gagal
-        }
-    }
+
 
     // Fungsi untuk mengurangi stok sementara
     public function reduce_stock($id, $amount)
@@ -102,4 +94,74 @@ class Asset_model extends CI_Model
         $this->db->where('id', $old_id);
         return $this->db->update('assets'); // Menyesuaikan nama tabel jika diperlukan
     }
+
+    public function get_categories() {
+        return $this->db->select('kategori')
+                        ->distinct()
+                        ->get('assets')
+                        ->result_array();
+    }
+
+    // Ambil data berdasarkan kategori
+    public function get_assets_by_category($kategori) {
+        // Query untuk mengambil data berdasarkan kategori
+        $this->db->where('kategori', $kategori);
+        $query = $this->db->get('assets');
+        return $query->result_array();
+    }
+    
+    public function get_assets_by_category_and_search($kategori, $search) {
+        $this->db->like('nama_asset', $search);
+        $this->db->where('kategori', $kategori);
+        return $this->db->get('assets')->result_array();
+    }
+    public function get_categories_with_count() {
+        // Mengambil data kategori dan menghitung jumlah barang per kategori
+        $this->db->select('kategori, COUNT(*) as jumlah_barang');
+        $this->db->from('assets');  // Sesuaikan dengan tabel yang benar
+        $this->db->group_by('kategori');  // Mengelompokkan berdasarkan kategori
+        $query = $this->db->get();
+    
+        return $query->result_array();  // Pastikan ini mengembalikan array yang benar
+    }
+    public function get_count_by_category($kategori) {
+        $this->db->where('kategori', $kategori);
+        return $this->db->count_all_results('assets'); // Sesuaikan nama tabelnya
+    }
+
+    public function get_kategori_with_jumlah_barang() {
+        // Query untuk menghitung jumlah barang berdasarkan kategori
+        $this->db->select('kategori, COUNT(*) as jumlah_barang');
+        $this->db->group_by('kategori');
+        $query = $this->db->get('assets'); // Mengambil data dari tabel assets
+
+        return $query->result_array(); // Mengembalikan hasil query sebagai array
+    }
+    public function delete_asset($id)
+    {
+        if ($this->db->delete('assets', ['id' => $id])) {
+            return true; // Berhasil menghapus asset
+        } else {
+            log_message('error', 'Gagal menghapus asset: ' . $this->db->last_query());
+            return false; // Gagal menghapus asset
+        }
+    }
+    public function delete_by_asset_id($asset_id)
+    {
+        // Menghapus peminjaman berdasarkan asset_id
+        $this->db->where('asset_id', $asset_id);
+        if ($this->db->delete('peminjaman')) {
+            return true;
+        } else {
+            log_message('error', 'Gagal menghapus data peminjaman terkait asset: ' . $this->db->last_query());
+            return false;
+        }
+    }
+    
+
+
+
+    
+    
+    
 }

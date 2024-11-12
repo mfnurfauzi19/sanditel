@@ -20,28 +20,52 @@ class Barcode extends CI_Controller
         $this->load->view('templates/dashboard', $data); // Muat dashboard dengan data
     }
     
-
     public function process()
     {
-        // Proses data barcode yang diterima dari AJAX
-        $barcode = $this->input->post('barcode');
-
-        // Contoh logika untuk memproses barcode
-        if ($barcode) {
-            // Lakukan sesuatu dengan data barcode, seperti menyimpannya di database
-            $response = [
-                'status' => 'success',
-                'message' => 'Barcode berhasil diproses.',
-                'barcode' => $barcode
-            ];
-        } else {
+        // Ambil barcode dari POST data dan hilangkan spasi ekstra
+        $barcode = trim($this->input->post('barcode'));
+    
+        // Pastikan barcode tidak kosong
+        if (empty($barcode)) {
             $response = [
                 'status' => 'error',
-                'message' => 'Gagal memproses barcode.'
+                'message' => 'Barcode tidak boleh kosong.'
+            ];
+            echo json_encode($response);
+            return;
+        }
+    
+        // Cari data aset berdasarkan barcode
+        $this->db->where('barcode', $barcode);
+        $asset = $this->db->get('assets')->row_array();
+    
+        // Jika data aset ditemukan
+        if ($asset) {
+            $response = [
+                'status' => 'success',
+                'message' => 'Data ditemukan.',
+                'asset' => [
+                    'nama_asset' => $asset['nama_asset'],
+                    'merk_kode' => $asset['merk_kode'],
+                    'status' => $asset['status'],
+                    'qty' => $asset['qty'],
+                    'barcode' => $asset['barcode']
+                ]
+            ];
+        } else {
+            // Jika data tidak ditemukan
+            $response = [
+                'status' => 'error',
+                'message' => 'Aset tidak ditemukan.'
             ];
         }
-
-        // Mengembalikan respon JSON
+    
+        // Kirimkan respons dalam format JSON
         echo json_encode($response);
     }
-}
+    
+    }
+    
+
+        
+

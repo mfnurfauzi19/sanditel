@@ -12,20 +12,13 @@
                     <select name="asset_id" id="asset_id" class="form-control" required>
                         <?php foreach ($assets as $asset): ?>
                             <option value="<?= $asset['id']; ?>">
-                                <?= $asset['nama_asset']; ?> - <?= $asset['merk_kode']; ?> | Qty : <?= $asset['qty']; ?> | Ok : <?= $asset['ok']; ?> | Rusak: <?= $asset['rusak']; ?>
+                                <?= $asset['nama_asset']; ?> - <?= $asset['merk_kode']; ?> | Qty : <?= $asset['qty']; ?> | Ok : <?= $asset['ok']; ?> | Rusak: <?= $asset['status']; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="quantity">Jumlah Tersedia</label>
-                    <input type="number" name="quantity" id="quantity" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="remarks">Catatan</label>
-                    <textarea name="remarks" id="remarks" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+               
+               <center> <button type="submit" class="btn btn-primary">Cari</button></center>
             </form>
         </div>
     </div>

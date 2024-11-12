@@ -16,13 +16,26 @@ class DataAsset extends CI_Controller
     }
 
     public function data()
-    {
-        $data['dataasset'] = $this->Asset_model->get_all_assets();
-        $data['title'] = "Data Asset";
-        $data['contents'] = $this->load->view('data_asset/data', $data, true);
-        $this->load->view('templates/dashboard', $data);
-    }
+{
+    // Ambil semua data aset
+    $data['dataasset'] = $this->Asset_model->get_all_assets();
+    $data['title'] = "Data Asset";
 
+    // Cek peminjaman yang akan habis dalam 2 hari ke depan
+    $this->db->where('status_pengembalian', 0);  // Belum dikembalikan
+    $this->db->where('tanggal_kembali <=', date('Y-m-d', strtotime('+5 days')));  // Tanggal pengembalian dalam 2 hari
+    $this->db->where('tanggal_kembali >', date('Y-m-d'));  // Jangan cek untuk barang yang sudah lewat
+    $query = $this->db->get('peminjaman');
+
+    // Jika ada peminjaman yang hampir habis, kirimkan data ke view
+    $data['peringatan'] = $query->num_rows() > 0 ? true : false;
+
+    // Muat halaman data asset
+    $data['contents'] = $this->load->view('data_asset/data', $data, true);
+    $this->load->view('templates/dashboard', $data);
+}
+
+    
     public function add()
     {
         $data['title'] = "Tambah Asset";
@@ -35,59 +48,75 @@ class DataAsset extends CI_Controller
             $this->process_asset();
         }
     }
-
-    public function edit($id)
-    {
-        $this->check_access('gudang');
-        $data['asset'] = $this->Asset_model->get_asset_by_id($id);
-        if (!$data['asset']) show_404();
-
-        $data['title'] = 'Edit Asset';
-        $data['contents'] = $this->load->view('data_asset/edit', $data, true);
-        $this->load->view('templates/dashboard', $data);
+public function edit($id)
+{
+    // Mengecek akses user
+    $this->check_access('admin');
+    
+    // Mengambil data asset berdasarkan ID
+    $data['asset'] = $this->Asset_model->get_asset_by_id($id);
+    
+    // Jika asset tidak ditemukan, tampilkan 404
+    if (!$data['asset']) {
+        show_404();
     }
 
-    public function update($id)
-    {
-        $this->form_validation->set_rules('nama_asset', 'Nama Asset', 'required');
-        $this->form_validation->set_rules('merk_kode', 'Merk/Type', 'required');
-        $this->form_validation->set_rules('qty', 'Qty', 'required|integer');
-        $this->form_validation->set_rules('ok', 'Jumlah OK', 'required|integer');
-        $this->form_validation->set_rules('rusak', 'Jumlah Rusak', 'required|integer');
-    
-        if ($this->form_validation->run() === FALSE) {
-            $this->session->set_flashdata('pesan', validation_errors());
-            redirect('data_asset/edit/' . $id);
+    // Menyiapkan data untuk tampilan
+    $data['title'] = 'Edit Asset';
+    $data['contents'] = $this->load->view('data_asset/edit', $data, true);
+
+    // Menampilkan halaman dengan template dashboard
+    $this->load->view('templates/dashboard', $data);
+}
+
+
+public function update($id)
+{
+    $this->form_validation->set_rules('nama_asset', 'Nama Asset', 'required');
+    $this->form_validation->set_rules('merk_kode', 'Merk/Type', 'required');
+    $this->form_validation->set_rules('kategori', 'Kategori', 'required');
+    $this->form_validation->set_rules('qty', 'Qty', 'required|integer');
+    $this->form_validation->set_rules('status', 'Status', 'required|integer');
+
+    if ($this->form_validation->run() === FALSE) {
+        $this->session->set_flashdata('pesan', validation_errors());
+        redirect('data_asset/edit/' . $id);
+    } else {
+        $data = array(
+            'nama_asset' => $this->input->post('nama_asset'),
+            'merk_kode' => $this->input->post('merk_kode'),
+            'kategori' => $this->input->post('kategori'),
+            'qty' => $this->input->post('qty'),
+            'status' => $this->input->post('status'), // Status yang digunakan sekarang
+        );
+
+        if ($this->Asset_model->update_asset($id, $data)) {
+            $this->session->set_flashdata('pesan', 'Asset berhasil diperbarui');
         } else {
-            $data = array(
-                'nama_asset' => $this->input->post('nama_asset'),
-                'merk_kode' => $this->input->post('merk_kode'),
-                'qty' => $this->input->post('qty'),
-                'ok' => $this->input->post('ok'),
-                'rusak' => $this->input->post('rusak'),
-            );
-    
-            if ($this->Asset_model->update_asset($id, $data)) {
-                $this->session->set_flashdata('pesan', 'Asset berhasil diperbarui');
-            } else {
-                $this->session->set_flashdata('pesan', 'Gagal memperbarui asset');
-            }
-            redirect('data_asset');
-        }
-    }
-    
-    public function delete($id)
-    {
-        $this->check_access('admin');
-        
-        if ($this->Asset_model->delete_asset($id)) {
-            $this->renumber_ids();
-            $this->session->set_flashdata('pesan', 'Data asset berhasil dihapus.');
-        } else {
-            $this->session->set_flashdata('pesan', 'Gagal menghapus data asset.');
+            $this->session->set_flashdata('pesan', 'Gagal memperbarui asset');
         }
         redirect('data_asset');
     }
+}
+
+
+    
+        public function delete($id)
+        {
+            // Panggil model untuk menghapus data asset berdasarkan ID
+            if ($this->Asset_model->delete_asset($id)) {
+                // Jika berhasil, beri notifikasi dan redirect
+                $this->session->set_flashdata('message', 'Data asset berhasil dihapus');
+            } else {
+                // Jika gagal, beri notifikasi
+                $this->session->set_flashdata('message', 'Gagal menghapus data asset');
+            }
+            
+            // Redirect kembali ke halaman utama
+            redirect('data_asset');
+        }
+
+
     
     private function renumber_ids()
     {
@@ -105,29 +134,31 @@ class DataAsset extends CI_Controller
     {
         $this->form_validation->set_rules('nama_asset', 'Nama Asset', 'required');
         $this->form_validation->set_rules('merk_kode', 'Merk/Type', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required');
         $this->form_validation->set_rules('qty', 'Qty', 'required|integer');
-        $this->form_validation->set_rules('ok', 'Jumlah OK', 'required|integer');
-        $this->form_validation->set_rules('rusak', 'Jumlah Rusak', 'required|integer');
+        $this->form_validation->set_rules('status', 'Status', 'required|integer');
     }
 
     private function process_asset($id = null)
     {
         $qty = $this->input->post('qty');
-        $ok = $this->input->post('ok');
-        $rusak = $this->input->post('rusak');
+        $status = $this->input->post('status');
 
-        if (!$this->validate_asset($qty, $ok, $rusak)) {
+        // Validasi status (sekarang hanya status, tidak ada ok dan rusak)
+        if (!$this->validate_asset($qty, $status)) {
             $redirect_url = $id ? 'data_asset/edit/' . $id : 'data_asset/add';
             redirect($redirect_url);
         } else {
+            // Menyiapkan data aset
             $asset_data = [
                 'nama_asset' => $this->input->post('nama_asset'),
                 'merk_kode' => $this->input->post('merk_kode'),
+                'kategori' => $this->input->post('kategori'),
                 'qty' => $qty,
-                'ok' => $ok,
-                'rusak' => $rusak,
+                'status' => $status,
             ];
 
+            // Menyimpan atau mengupdate asset berdasarkan ID
             if ($id) {
                 $update = $this->Asset_model->update_asset($id, $asset_data);
                 $message = $update ? 'Asset berhasil diupdate.' : 'Gagal mengupdate asset. Silakan coba lagi.';
@@ -136,20 +167,21 @@ class DataAsset extends CI_Controller
                 $message = $insert ? 'Asset berhasil ditambahkan.' : 'Gagal menambahkan asset. Silakan coba lagi.';
             }
 
+            // Menampilkan pesan ke sesi
             $this->session->set_flashdata('message', $message);
             redirect('data_asset');
         }
     }
 
-    private function validate_asset($qty, $ok, $rusak)
+    // Validasi input, sekarang hanya status yang diperiksa
+    private function validate_asset($qty, $status)
     {
-        if ($ok + $rusak > $qty) {
-            $this->session->set_flashdata('message', 'Jumlah OK dan Rusak tidak boleh melebihi Qty.');
-            return false;
-        } elseif ($ok + $rusak != $qty) {
-            $this->session->set_flashdata('message', 'Jumlah OK dan Rusak harus sama dengan Qty.');
+        // Validasi status jika diperlukan
+        if (empty($status)) {
+            $this->session->set_flashdata('message', 'Status aset tidak boleh kosong.');
             return false;
         }
+
         return true;
     }
 
@@ -212,6 +244,83 @@ class DataAsset extends CI_Controller
             ]));
         }
     }
+
+    public function index_kategori() {
+        $data['title'] = ' Kategori Barang';  // Menambahkan title
+        // Mengambil daftar kategori dari model Asset_model
+        $data['kategori'] = $this->Asset_model->get_categories();
+        
+        // Menambahkan jumlah barang per kategori
+        foreach ($data['kategori'] as &$kat) {
+            // Mengambil jumlah barang berdasarkan kategori menggunakan fungsi dari model
+            $kat['jumlah_barang'] = $this->Asset_model->get_count_by_category($kat['kategori']);
+        }
+    
+        // Memuat konten kategori dan mengirim data kategori ke view
+        $data['contents'] = $this->load->view('data_asset/kategori', $data, true);
+    
+        // Memuat tampilan utama (dashboard) dengan data kategori
+        $this->load->view('templates/dashboard', $data);
+    }
+    
+    
+    
+    public function detail($kategori) {
+        $data['title'] = ' Detail Kategori Barang';  // Menambahkan title
+        // Mendekodekan nama kategori
+        $kategori = urldecode($kategori);
+        
+        // Mengambil daftar aset berdasarkan kategori
+        $this->load->model('Asset_model');
+        
+        // Menangani pencarian jika ada input
+        $search = $this->input->get('search');
+        if ($search) {
+            $data['assets'] = $this->Asset_model->get_assets_by_category_and_search($kategori, $search);
+        } else {
+            $data['assets'] = $this->Asset_model->get_assets_by_category($kategori);
+        }
+    
+        // Menyimpan data kategori dan jumlah aset
+        $data['kategori'] = $kategori;
+        $data['jumlah_field'] = count($data['assets']);
+        $data['contents'] = $this->load->view('data_asset/detail_kategori', $data, true);
+
+    
+        // Menampilkan view detail kategori
+        $this->load->view('templates/dashboard', $data);
+
+    }
+
+    public function submit_form() {
+        $kategori = $this->input->post('kategori');
+        
+        // Menangani data item berdasarkan kategori
+        $itemData = [];
+        $i = 1;
+        while ($this->input->post('item' . $i)) {
+            $itemData[] = $this->input->post('item' . $i);
+            $i++;
+        }
+    
+        // Proses data yang sudah diterima (misalnya simpan ke database)
+        foreach ($itemData as $item) {
+            // Simpan setiap item ke database, tergantung pada kebutuhan Anda
+        }
+    
+        // Redirect atau tampilkan pesan sukses
+        $this->session->set_flashdata('pesan', 'Data berhasil disubmit.');
+        redirect('dataasset');
+    }
+    public function tambah_by_kategori() {
+        // Ambil data kategori dari database atau model
+        $data['kategori'] = $this->Dataasset_model->get_categories_with_count();  // Pastikan ada method get_kategori() di model Anda
+        
+        // Kirim data ke view
+        $this->load->view('data_asset/kategori', $data);
+    }
+    
+    
     
     
     

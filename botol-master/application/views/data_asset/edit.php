@@ -37,21 +37,38 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="kategori">Kategori</label>
+                    <select name="kategori" id="kategori" class="form-control" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="Laptop" <?= set_select('kategori', 'Laptop', $asset['kategori'] == 'Laptop'); ?>>Laptop</option>
+                        <option value="Komputer" <?= set_select('kategori', 'Komputer', $asset['kategori'] == 'Komputer'); ?>>Komputer</option>
+                        <option value="Power Supply" <?= set_select('kategori', 'Power Supply', $asset['kategori'] == 'Power Supply'); ?>>Power Supply</option>
+                        <option value="Walkie Talkie" <?= set_select('kategori', 'Walkie Talkie', $asset['kategori'] == 'Walkie Talkie'); ?>>Walkie Talkie</option>
+                        <option value="Switch Management" <?= set_select('kategori', 'Switch Management', $asset['kategori'] == 'Switch Management'); ?>>Switch Management</option>
+                        <option value="Router L3" <?= set_select('kategori', 'Router L3', $asset['kategori'] == 'Router L3'); ?>>Router L3</option>
+                        <option value="Server" <?= set_select('kategori', 'Server', $asset['kategori'] == 'Server'); ?>>Server</option>
+                        <option value="Rack" <?= set_select('kategori', 'Rack', $asset['kategori'] == 'Rack'); ?>>Rack</option>
+                        <option value="Tools Networking" <?= set_select('kategori', 'Tools Networking', $asset['kategori'] == 'Tools Networking'); ?>>Tools Networking</option>
+                        <option value="Antena" <?= set_select('kategori', 'Antena', $asset['kategori'] == 'Antena'); ?>>Antena</option>
+                    </select>
+                    <?= form_error('kategori', '<small class="text-danger">', '</small>'); ?>
+                </div>
+
+                <div class="form-group">
                     <label for="qty">Qty</label>
                     <input type="number" id="qty" name="qty" class="form-control" value="<?= set_value('qty', $asset['qty']); ?>" required>
                     <?= form_error('qty', '<small class="text-danger">', '</small>'); ?>
                 </div>
 
-                <div class="form-group">
-                    <label for="ok">Jumlah OK</label>
-                    <input type="number" id="ok" name="ok" class="form-control" value="<?= set_value('ok', $asset['ok']); ?>" required>
-                    <?= form_error('ok', '<small class="text-danger">', '</small>'); ?>
-                </div>
+                
 
                 <div class="form-group">
-                    <label for="rusak">Jumlah Rusak</label>
-                    <input type="number" id="rusak" name="rusak" class="form-control" value="<?= set_value('rusak', $asset['rusak']); ?>" required>
-                    <?= form_error('rusak', '<small class="text-danger">', '</small>'); ?>
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="form-control" required>
+                        <option value="1" <?= set_select('status', '1', $asset['status'] == false); ?>>OK</option>
+                        <option value="0" <?= set_select('status', '0', $asset['status'] == true); ?>>Rusak</option>
+                    </select>
+                    <?= form_error('status', '<small class="text-danger">', '</small>'); ?>
                 </div>
 
                 <!-- Modal Konfirmasi -->
@@ -137,22 +154,24 @@
         // Ketika tombol Update diklik, tampilkan modal konfirmasi
         $('#showUpdateModal').on('click', function() {
             var qty = parseInt($('#qty').val());
-            var ok = parseInt($('#ok').val());
-            var rusak = parseInt($('#rusak').val());
+            var status = parseInt($('#status').val()); // Ambil nilai status (OK atau Rusak)
 
-            // Validasi bahwa jumlah OK dan Rusak tidak boleh melebihi Qty
-            if (ok + rusak > qty) {
-                $('#exceedModal').modal('show'); // Tampilkan modal pemberitahuan jika jumlah OK dan Rusak melebihi Qty
-            } else if (ok + rusak != qty) {
-                $('#mismatchModal').modal('show'); // Tampilkan modal pemberitahuan jika tidak sesuai
+            console.log('Qty:', qty);
+            console.log('Status:', status);
+
+            // Validasi bahwa status OK atau Rusak tidak melebihi Qty
+            if (status > qty) {
+                $('#exceedModal').modal('show');
+            } else if (status !== qty && status !== 0) {
+                $('#mismatchModal').modal('show');
             } else {
-                $('#confirmUpdateModal').modal('show'); // Tampilkan modal konfirmasi jika validasi berhasil
+                $('#confirmUpdateModal').modal('show');
             }
         });
 
-        // Jika user mengkonfirmasi update
+        // Jika konfirmasi update, kirim form
         $('#confirmUpdate').on('click', function() {
-            $('#editAssetForm').submit(); // Kirim form
+            $('#editAssetForm').submit();
         });
     });
 </script>

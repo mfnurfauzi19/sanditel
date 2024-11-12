@@ -19,7 +19,7 @@ class StockOpname_model extends CI_Model
 public function get_all_assets_with_condition()
 {
     // Ambil data asset dengan kondisi OK dan Rusak
-    $this->db->select('id, nama_asset, merk_kode, qty, ok, rusak');
+    $this->db->select('id, nama_asset, merk_kode, qty, ok, status');
     return $this->db->get('assets')->result_array();
 }
 
