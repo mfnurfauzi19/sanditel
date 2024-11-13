@@ -94,14 +94,7 @@
                     <div class="col-md-5">
                         <input readonly="readonly" id="total_stok" type="number" class="form-control">
                     </div>
-                </div>
-                <!-- <div class="form-group row">
-                <label class="col-md-4 text-md-right" for="bukti_pengajuan"> Surat Bukti Pengajuan</label>
-                <div class="col-md-5">
-                    <input type="file" name="file_upload[]" id="bukti_pengajuan" class="form-control">
-                    <?= form_error('file_upload[]', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-                    </div>               -->
+                </div>             
                 <div class="row form-group">
                     <div class="col offset-md-4">
                         <button type="submit" class="btn btn-primary">Simpan</button>

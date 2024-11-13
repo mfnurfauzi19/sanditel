@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                    Data Customer
+                    Data Tenaga Kerja
                 </h4>
             </div>
             <div class="col-auto">
@@ -13,7 +13,7 @@
                         <i class="fa fa-plus"></i>
                     </span>
                     <span class="text">
-                        Tambah Customer
+                        Tambah Tenaga Kerja
                     </span>
                 </a>
             </div>
@@ -26,7 +26,7 @@
                     <th>No.</th>
                     <th>Nama</th>
                     <th>Nomor Telepon</th>
-                    <th>Alamat</th>
+                    <th>Divisi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>

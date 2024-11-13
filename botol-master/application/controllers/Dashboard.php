@@ -19,6 +19,7 @@ class Dashboard extends CI_Controller
         $data['barang_keluar'] = $this->admin->count('barang_keluar_dtl');
         $data['supplier'] = $this->admin->count('supplier');
         $data['user'] = $this->admin->count('user');
+        $data['assets'] = $this->admin->count('assets');
         $data['stok'] = $this->admin->sum('barang', 'stok');
         $data['barang_min'] = $this->admin->min('barang', 'stok', 10);
         $data['transaksi'] = [
@@ -35,6 +36,7 @@ class Dashboard extends CI_Controller
             $data['cbm'][] = $this->admin->chartBarangMasuk($b);
             $data['cbk'][] = $this->admin->chartBarangKeluar($b);
         }
+
 
         $this->template->load('templates/dashboard', 'dashboard', $data);
     }

@@ -41,12 +41,12 @@
                         <?= form_error('barang_id', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
-                <div class="row form-group">
+                <!-- <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="harga">Harga</label>
                     <div class="col-md-5">
                         <input readonly="readonly" id="harga" name="harga" type="number" class="form-control">
                     </div>
-                </div>
+                </div> -->
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="stok">Stok</label>
                     <div class="col-md-5">
@@ -71,7 +71,7 @@
                         <input readonly="readonly" id="total_stok" type="number" class="form-control">
                     </div>
                 </div>
-                <div class="row form-group">
+                <!-- <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="total_nominal">Total Nominal</label>
                     <div class="col-md-5">
                         <div class="input-group">
@@ -81,7 +81,7 @@
                         <input readonly="readonly" name="total_nominal" id="total_nominal" type="number" class="form-control">
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row form-group">
                     <div class="col offset-md-4">
                         <button type="submit" class="btn btn-info btn-sm btn-icon-split">
@@ -98,9 +98,9 @@
                 <thead>
                     <tr>
                         <th style="text-align:center;">Barang</th>
-                        <th style="text-align:center;">Harga(Rp)</th>
+                        <!-- <th style="text-align:center;">Harga(Rp)</th> -->
                         <th style="text-align:center;">Jumlah Keluar</th>
-                        <th style="text-align:center;">Sub Total</th>
+                        <!-- <th style="text-align:center;">Sub Total</th> -->
                         <th style="width:100px;text-align:center;">Aksi</th>
                     </tr>
                 </thead>
@@ -110,9 +110,9 @@
                     <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
                     <tr>
                          <td style="text-align:center;"><?=$items['id'];?> | <?=$items['name'];?></td>
-                         <td style="text-align:center;"><?php echo number_format($items['amount']);?></td>
+                         <!-- <td style="text-align:center;"><?php echo number_format($items['amount']);?></td> -->
                          <td style="text-align:center;"><?php echo number_format($items['qty']);?></td>
-                         <td style="text-align:center;"><?php echo number_format($items['subtotal']);?></td>
+                         <!-- <td style="text-align:center;"><?php echo number_format($items['subtotal']);?></td> -->
                         
                          <td style="text-align:center;"><a href="<?php echo base_url().'Barangkeluar/remove/'.$items['rowid'];?>" class="btn btn-danger btn-sm"><span class="fa fa-window-close text-warning"></span> Batal</a></td>
                     </tr>
@@ -156,10 +156,10 @@
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="id_customer">Nama Customer / Toko</label>
+                    <label class="col-md-4 text-md-right" for="id_customer">Tenaga Kerja</label>
                     <div class="col-md-5">
                         <select class="form-control" id="id_customer" name="id_customer" onchange='changeValue(this.value)' required>
-                            <option selected disabled>-Pilih Pelanggan-</option>
+                            <option selected disabled>-Pilih Tenaga Kerja-</option>
                             <?php
                             $jsArray = "var prdName = new Array();\n";
                             foreach ($data_customer as $row) : ?>
@@ -182,7 +182,7 @@
                 </div>
 
                 <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="alamat">Alamat Penerima</label>
+                    <label class="col-md-4 text-md-right" for="alamat">Divisi Penerima</label>
                     <div class="col-md-5">
                         <input id="alamat" name="alamat" type="text" class="form-control" required>
                         <?= form_error('alamat', '<small class="text-danger">', '</small>'); ?>
@@ -198,7 +198,7 @@
                     };
                 </script>
 
-                <div class="row form-group">
+                <!-- <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="diskon">Diskon</label>
                     <div class="col-md-5">
                         <div class="input-group">
@@ -209,9 +209,9 @@
                             <?= form_error('diskon', '<small class="text-danger">', '</small>'); ?>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="row form-group">
+                <!-- <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="total_nominal">Total</label>
                     <div class="col-md-5">
                         <div class="input-group">
@@ -221,9 +221,9 @@
                             <input readonly="readonly" name="total_nominal" id="total_nominal_cart" value="<?php echo $this->cart->total();?>" type="number" class="form-control">
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="row form-group">
+                <!-- <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="grand_total">Total Setelah Diskon</label>
                     <div class="col-md-5">
                         <div class="input-group">
@@ -234,8 +234,7 @@
                         <input name="grand_total_hidden" value="<?php echo $this->cart->total();?>" type="hidden" class="form-control">
                         </div>
                     </div>
-
-                </div>
+                </div> -->
                  
                 <div class="row form-group">
                     <div class="col offset-md-4">
@@ -257,10 +256,10 @@
                                 </button>
                             </div>
 
-                            <div class="modal-body" id="modal-body">
-                                <div class="form-group">
+                            <!-- <div class="modal-body" id="modal-body">
+                                <div class="form-group"> -->
                                     <!-- <label class="form-label font-weight-normal h5" id="total_bayars"><p> Total Belanjaan adalah: <input readonly="readonly" name="modal_total_bayar" id="modal_total_bayar" placeholder="<?php echo number_format($this->cart->total(), 0, ',', '.') ?>" type="number" class="form-control"> </p></label> -->
-                                    <label class="form-label font-weight-normal h5" id="total_bayars">
+                                    <!-- <label class="form-label font-weight-normal h5" id="total_bayars">
                                         <p> Total Belanjaan adalah: <?= number_format($this->cart->total(), 0, ',', '.') ?> </p>
                                     </label>
                                 </div>
@@ -294,7 +293,32 @@
                                         <input required autofocus type="tel" name="paid_amount" id="paid_amount" class="form-control" aria-label="Pembayaran" maxlength=12 value=0>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <table class="table table-hover table-bordered" style="font-size:12px;margin-top:10px;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">Barang</th>
+                        <!-- <th style="text-align:center;">Harga(Rp)</th> -->
+                        <th style="text-align:center;">Jumlah Keluar</th>
+                        <!-- <th style="text-align:center;">Sub Total</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($this->cart->contents() as $items): ?>
+                    <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
+                    <tr>
+                         <td style="text-align:center;"><?=$items['id'];?> | <?=$items['name'];?></td>
+                         <!-- <td style="text-align:center;"><?php echo number_format($items['amount']);?></td> -->
+                         <td style="text-align:center;"><?php echo number_format($items['qty']);?></td>
+                         <!-- <td style="text-align:center;"><?php echo number_format($items['subtotal']);?></td> -->
+                    </tr>
+                    
+                    <?php $i++; ?>
+                    <?php endforeach; ?>
+                </tbody>
+                </table>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-danger px-5" data-dismiss="modal">Batal</button>

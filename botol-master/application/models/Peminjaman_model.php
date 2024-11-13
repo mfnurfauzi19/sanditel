@@ -4,7 +4,7 @@ class Peminjaman_model extends CI_Model {
     
     // Mengambil data peminjaman beserta detail asset dan pengguna
     public function get_peminjaman_with_assets() {
-        $this->db->select('peminjaman.*, assets.nama_asset, assets.ok');
+        $this->db->select('peminjaman.*, assets.nama_asset, assets.qty');
         
         // Menghitung sisa stok dengan memperhitungkan peminjaman yang sedang berlangsung
         $this->db->select('(assets.ok - IFNULL((SELECT SUM(p2.jumlah_pinjam) 
@@ -21,7 +21,7 @@ class Peminjaman_model extends CI_Model {
     
     // Mengecek ketersediaan stok dengan memperhitungkan peminjaman yang belum dikembalikan
     public function is_qty_available($assets_id, $qty_pinjam) {
-        $this->db->select('ok - IFNULL((SELECT SUM(jumlah_pinjam) 
+        $this->db->select('qty - IFNULL((SELECT SUM(jumlah_pinjam) 
                         FROM peminjaman 
                         WHERE assets_id = assets.id 
                         AND status_pengembalian = 0), 0) AS sisa_ok');
@@ -90,7 +90,8 @@ class Peminjaman_model extends CI_Model {
             peminjaman.peminjam,
             peminjaman.departemen,
             assets.nama_asset,
-            assets.ok - IFNULL(
+            assets.barcode,
+            assets.qty - IFNULL(
                 (SELECT SUM(jumlah_pinjam) FROM peminjaman WHERE assets_id = assets.id),
                 0
             ) AS sisa_stok
@@ -103,7 +104,7 @@ class Peminjaman_model extends CI_Model {
     
     
     public function get_all_barang_with_sisa_stok() {
-        $this->db->select('assets.id, assets.nama_asset, assets.ok, (assets.ok - IFNULL(SUM(peminjaman.jumlah_pinjam), 0)) AS sisa_stok');
+        $this->db->select('assets.id, assets.nama_asset, assets.qty, assets.barcode, (assets.qty - IFNULL(SUM(peminjaman.jumlah_pinjam), 0)) AS sisa_stok');
         $this->db->from('assets');
         $this->db->join('peminjaman', 'peminjaman.assets_id = assets.id AND peminjaman.status_pengembalian = 0', 'left');
         $this->db->group_by('assets.id');

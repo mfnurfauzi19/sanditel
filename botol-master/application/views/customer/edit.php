@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col">
                         <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                            Form Edit Customer
+                            Form Edit Tenaga Kerja
                         </h4>
                     </div>
                     <div class="col-auto">
@@ -24,7 +24,7 @@
                 <?= $this->session->flashdata('pesan'); ?>
                 <?= form_open('', [], ['id' => $customer['id']]); ?>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="fullname">Nama Customer</label>
+                    <label class="col-md-3 text-md-right" for="fullname">Nama </label>
                     <div class="col-md-9">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -48,13 +48,13 @@
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="address">Alamat</label>
+                    <label class="col-md-3 text-md-right" for="address">Divisi</label>
                     <div class="col-md-9">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-home"></i></span>
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-building"></i></span>
                             </div>
-                            <textarea name="address" id="address" class="form-control" rows="4" placeholder="Alamat..."><?= set_value('address', $customer['address']); ?></textarea>
+                            <textarea name="address" id="address" class="form-control" rows="4" placeholder="Divisi...."><?= set_value('address', $customer['address']); ?></textarea>
                         </div>
                         <?= form_error('address', '<small class="text-danger">', '</small>'); ?>
                     </div>

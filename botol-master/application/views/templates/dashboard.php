@@ -53,7 +53,7 @@ $segment = $this->uri->segment(1);
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-university"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Pengadaan Barang</div>
+                <div class="sidebar-brand-text mx-3">Gudang Teknik</div>
             </a>
 
             <!-- Nav Item - Dashboard -->
@@ -81,11 +81,11 @@ $segment = $this->uri->segment(1);
             </li>
 
             <!-- Nav Item - Dashboard -->
-            <!-- <li class="nav-item <?= ($segment == 'customer') ? "active":"" ?>">
+             <li class="nav-item <?= ($segment == 'customer') ? "active":"" ?>">
                 <a class="nav-link pb-0" href="<?= base_url('customer'); ?>">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Customer</span>
-                </a> -->
+                    <span>Tenaga Kerja</span>
+                </a> 
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -300,7 +300,7 @@ $segment = $this->uri->segment(1);
             <footer class="sticky-footer bg-light">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Aplikasi Pengadaan Barang 2024 &bull; by fauzi.id</span>
+                        <span>Copyright &copy; Aplikasi Manajemen Gudang  &bull; by Sanditel Teknik</span>
                     </div>
                 </div>
             </footer>

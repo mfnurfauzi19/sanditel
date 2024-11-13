@@ -65,8 +65,9 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select name="status" id="status" class="form-control" required>
-                        <option value="1" <?= set_select('status', '1', $asset['status'] == false); ?>>OK</option>
-                        <option value="0" <?= set_select('status', '0', $asset['status'] == true); ?>>Rusak</option>
+                    <option value="1" <?= set_select('status', '1', $asset['status'] == 1); ?>>OK</option>
+                    <option value="0" <?= set_select('status', '0', $asset['status'] == 0); ?>>Rusak</option>
+
                     </select>
                     <?= form_error('status', '<small class="text-danger">', '</small>'); ?>
                 </div>

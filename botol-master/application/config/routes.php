@@ -110,6 +110,7 @@ $route['dataasset/tambah_by_kategori'] = 'Dataasset/tambah_by_kategori';
 
 $route['barcode/scan'] = 'barcode/scan';
 $route['barcode/process'] = 'barcode/process';
+$route['barcode/update_status'] = 'barcode/update_status';
 
 
 

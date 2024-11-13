@@ -203,25 +203,36 @@ class Admin_model extends CI_Model
 
     public function getBarangKeluar($limit = null, $range = null)
     {
-        $this->db->select('bk.*, b.*, s.*, bkd.*, u.nama nama_user');
+        // Menentukan kolom yang ingin diambil
+        $this->db->select('bk.*, b.*, s.*, bkd.*, u.nama as nama_user');
+
+        // Menentukan relasi antar tabel
         $this->db->join('barang_keluar bk', 'bk.id_barang_keluar = bkd.id_barang_keluar');
         $this->db->join('user u', 'bk.user_id = u.id_user');
         $this->db->join('barang b', 'bkd.barang_id = b.id_barang');
         $this->db->join('satuan s', 'b.satuan_id = s.id_satuan');
+
+        // Penerapan limit jika diperlukan
         if ($limit != null) {
             $this->db->limit($limit);
         }
-        // if ($id_barang != null) {
-        //     $this->db->where('id_barang', $id_barang);
-        // }
+
+        // Penerapan filter berdasarkan range tanggal
         if ($range != null) {
-            $this->db->where('tanggal_keluar' . ' >=', $range['mulai']);
-            $this->db->where('tanggal_keluar' . ' <=', $range['akhir']);
+            $this->db->where('bk.tanggal_keluar >=', $range['mulai']);
+            $this->db->where('bk.tanggal_keluar <=', $range['akhir']);
         }
-        $this->db->group_by('bk.id_barang_keluar', 'DESC');
+
+        // Mengurutkan data berdasarkan id_barang_keluar, menurunnya
         $this->db->order_by('bk.id_barang_keluar', 'DESC');
+
+        // Menggunakan DISTINCT jika perlu untuk menghindari duplikasi
+        // $this->db->distinct();
+
+        // Mendapatkan hasil dari query
         return $this->db->get('barang_keluar_dtl bkd')->result_array();
     }
+
 
     public function getIDBarangKeluar($id_barang_keluar)
     {

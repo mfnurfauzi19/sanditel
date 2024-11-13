@@ -60,9 +60,10 @@ class Laporan extends CI_Controller
             $pdf->Cell(10, 7, 'No.', 1, 0, 'C');
             $pdf->Cell(25, 7, 'Tgl Masuk', 1, 0, 'C');
             $pdf->Cell(35, 7, 'ID Transaksi', 1, 0, 'C');
-            $pdf->Cell(55, 7, 'Nama Barang', 1, 0, 'C');
-            $pdf->Cell(40, 7, 'Supplier', 1, 0, 'C');
+            $pdf->Cell(40, 7, 'Nama Barang', 1, 0, 'C');
+            $pdf->Cell(30, 7, 'Supplier', 1, 0, 'C');
             $pdf->Cell(30, 7, 'Jumlah Masuk', 1, 0, 'C');
+            $pdf->Cell(25, 7, 'Petugas', 1, 0, 'C');
             $pdf->Ln();
 
             $no = 1;
@@ -71,11 +72,12 @@ class Laporan extends CI_Controller
                 $pdf->Cell(10, 7, $no++ . '.', 1, 0, 'C');
                 $pdf->Cell(25, 7, date('d-m-Y', strtotime($d['tanggal_masuk'])), 1, 0, 'C');
                 $pdf->Cell(35, 7, $d['id_barang_masuk'], 1, 0, 'C');
-                $pdf->Cell(55, 7, $d['nama_barang'], 1, 0, 'L');
-                $pdf->Cell(40, 7, $d['nama_supplier'], 1, 0, 'L');
-                $pdf->Cell(30, 7, $d['jumlah_masuk'] . ' ' . $d['nama_satuan'], 1, 0, 'C');
+                $pdf->Cell(40, 7, $d['nama_barang'], 1, 0, 'L');
+                $pdf->Cell(30, 7, $d['nama_supplier'], 1, 0, 'L');
+                $pdf->Cell(30, 7, $d['jumlah_masuk'] . ' ' . $d['nama_satuan'], 1, 0, 'L');
+                $pdf->Cell(25, 7, $d['nama'], 1, 0, 'L');
                 $pdf->Ln();
-            } 
+            }
 
         elseif ($table_ == 'barang_keluar') :
             $pdf->Cell(10, 7, 'No.', 1, 0, 'C');
@@ -85,8 +87,6 @@ class Laporan extends CI_Controller
             $pdf->Cell(25, 7, 'Penerima', 1, 0, 'C');
             $pdf->Cell(50, 7, 'Alamat', 1, 0, 'C');
             $pdf->Cell(18, 7, 'Jml Keluar', 1, 0, 'C');
-            // $pdf->Cell(25, 7, 'Total', 1, 0, 'C');
-
             $pdf->Ln();
 
             $no = 1;
@@ -101,11 +101,9 @@ class Laporan extends CI_Controller
                 $pdf->Cell(25, 7, $d['nama_penerima'], 1, 0, 'L');
                 $pdf->Cell(50, 7, $d['alamat'], 1, 0, 'L');
                 $pdf->Cell(18, 7, $d['jumlah_keluar'] . ' ' . $d['nama_satuan'], 1, 0, 'C');
-                // $pdf->Cell(25, 7, 'Rp '.number_format($d['grand_total'],0,',','.'), 1, 0, 'L');
-
                 $pdf->Ln();
-                
-            } 
+            }
+
         else :
             $pdf->Cell(7, 7, 'No.', 1, 0, 'C');
             $pdf->Cell(16, 7, 'Tgl Keluar', 1, 0, 'C');
@@ -115,7 +113,6 @@ class Laporan extends CI_Controller
             $pdf->Cell(48, 7, 'Alamat', 1, 0, 'C');
             $pdf->Cell(16, 7, 'Jml Keluar', 1, 0, 'C');
             $pdf->Cell(25, 7, 'Total', 1, 0, 'C');
-
             $pdf->Ln();
 
             $no = 1;
@@ -130,17 +127,11 @@ class Laporan extends CI_Controller
                 $pdf->Cell(24, 7, $d['nama_penerima'], 1, 0, 'L');
                 $pdf->Cell(48, 7, $d['alamat'], 1, 0, 'L');
                 $pdf->Cell(16, 7, $d['jumlah_keluar'] . ' ' . $d['nama_satuan'], 1, 0, 'C');
-                $pdf->Cell(25, 7, 'Rp '.number_format($d['grand_total'],0,',','.'), 1, 0, 'L');
-
+                $pdf->Cell(25, 7, 'Rp ' . number_format($d['grand_total'], 0, ',', '.'), 1, 0, 'L');
                 $pdf->Ln();
-                
             }
-                $pdf->Cell(173, 7, 'GRAND TOTAL', 1, 0, 'C');
-                $pdf->Cell(25, 7, 'Rp '.number_format($grandTotal,0,',','.'), 1, 0, 'L');
-                $pdf->Ln();
         endif;
 
-        $file_name = $table . ' ' . $tanggal;
-        $pdf->Output('I', $file_name);
+        $pdf->Output();
     }
 }

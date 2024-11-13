@@ -25,7 +25,7 @@ class Barangkeluar extends CI_Controller
     {
         $this->form_validation->set_rules('id_customer', 'Nama Penerima', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-        $this->form_validation->set_rules('diskon', 'Diskon', "trim|less_than_equal_to[{$this->input->post('total_nominal')}]");
+        // $this->form_validation->set_rules('diskon', 'Diskon', "trim|less_than_equal_to[{$this->input->post('total_nominal')}]");
     }
 
     private function _validasi_cart()
@@ -74,40 +74,40 @@ class Barangkeluar extends CI_Controller
                 'nama_penerima'     => $this->input->post('nama_penerima'),
                 'alamat'            => $this->input->post('alamat'),
                 'tanggal_keluar'    => $this->input->post('tanggal_keluar'),
-                'total_nominal'     => $this->input->post('total_nominal'),
-                'diskon'            => $this->input->post('diskon'),
-                'payment'           => $this->input->post('payment'),
+                // 'total_nominal'     => $this->input->post('total_nominal'),
+                // 'diskon'            => $this->input->post('diskon'),
+                // 'payment'           => $this->input->post('payment'),
             );
 
-            if ($this->input->post('grand_total')=="") 
-            {
-                $input['grand_total'] = $this->input->post('grand_total_hidden');
-            } 
-            else 
-            {
-                $input['grand_total'] = $this->input->post('grand_total');
-            }
+            // if ($this->input->post('grand_total')=="") 
+            // {
+            //     $input['grand_total'] = $this->input->post('grand_total_hidden');
+            // } 
+            // else 
+            // {
+            //     $input['grand_total'] = $this->input->post('grand_total');
+            // }
 
-            $input['paid_amount'] = (int)str_replace(',', '', str_replace('.', '', $this->input->post('paid_amount')));
+            // $input['paid_amount'] = (int)str_replace(',', '', str_replace('.', '', $this->input->post('paid_amount')));
 
-            if ( ($this->input->post('payment') == 'kontrabon') OR ($this->input->post('payment') == 'transfer') ) 
-            {
-                $input['paid_amount']   = 0;
-                $input['left_to_paid']  = $input['grand_total'];
-            } 
-            else 
-            {
-                // ada kembalian atau engga
-                if ($input['paid_amount'] > $input['grand_total'])
-                {
-                    // hitung kembalian
-                    $kembalian     = $input['paid_amount'] - $input['grand_total'];
-                    // validasi untuk jumlah yg dibayarkan
-                    $input['paid_amount']   = $input['grand_total'];
-                }
-                // hitung sisa yg harus diabayar (hutang)
-                $input['left_to_paid']  = $input['grand_total'] - $input['paid_amount'];
-            }
+            // if ( ($this->input->post('payment') == 'kontrabon') OR ($this->input->post('payment') == 'transfer') ) 
+            // {
+            //     $input['paid_amount']   = 0;
+            //     $input['left_to_paid']  = $input['grand_total'];
+            // } 
+            // else 
+            // {
+            //     // ada kembalian atau engga
+            //     if ($input['paid_amount'] > $input['grand_total'])
+            //     {
+            //         // hitung kembalian
+            //         $kembalian     = $input['paid_amount'] - $input['grand_total'];
+            //         // validasi untuk jumlah yg dibayarkan
+            //         $input['paid_amount']   = $input['grand_total'];
+            //     }
+            //     // hitung sisa yg harus diabayar (hutang)
+            //     $input['left_to_paid']  = $input['grand_total'] - $input['paid_amount'];
+            // }
             // pprintd($input);
 
             // ambil data utang si customer

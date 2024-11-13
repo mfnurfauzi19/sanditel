@@ -24,7 +24,6 @@ class Barang extends CI_Controller
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('jenis_id', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('satuan_id', 'Satuan Barang', 'required');
-        $this->form_validation->set_rules('harga', 'Harga Barang', 'required');
     }
 
     public function add()

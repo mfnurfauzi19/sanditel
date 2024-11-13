@@ -30,12 +30,11 @@ class Barangmasuk extends CI_Controller
     public function add()
     {
         $this->_validasi();
-    
         if ($this->form_validation->run() == false) {
             $data['title'] = "Barang Masuk";
             $data['supplier'] = $this->admin->get('supplier');
             $data['barang'] = $this->admin->get('barang');
-    
+
             // Mendapatkan dan men-generate kode transaksi barang masuk
             $kode = 'T-BM-' . date('ymd');
             $kode_terakhir = $this->admin->getMax('barang_masuk', 'id_barang_masuk', $kode);
@@ -43,44 +42,23 @@ class Barangmasuk extends CI_Controller
             $kode_tambah++;
             $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
             $data['id_barang_masuk'] = $kode . $number;
-    
+
             $this->template->load('templates/dashboard', 'barang_masuk/add', $data);
         } else {
             $input = $this->input->post(null, true);
-    
-            // Proses upload file
-            // $config['upload_path'] = './uploads/barang_masuk/'; // Direktori tempat file disimpan
-            // $config['allowed_types'] = 'jpg|jpeg|png|pdf|docx'; // Jenis file yang diizinkan
-            // $config['max_size'] = 2048; // Ukuran maksimal file dalam KB (misal 2MB)
-    
-            $this->load->library('upload', $config);
-    
-            if ($this->upload->do_upload('file_upload')) {
-                // Jika upload berhasil
-                // $fileData = $this->upload->data();
-                // $file_name = $fileData['file_name']; // Mendapatkan nama file yang di-upload
-                // $input['bukti_pengajuan'] = $file_name; // Simpan nama file di database
-    
-                // Insert data ke database
-                $insert = $this->admin->insert('barang_masuk', $input);
-    
-                if ($insert) {
-                    set_pesan('Data berhasil disimpan.');
-                    redirect('barangmasuk');
-                } else {
-                    set_pesan('Opps ada kesalahan!');
-                    redirect('barangmasuk/add');
-                }
+            $insert = $this->admin->insert('barang_masuk', $input);
+            
+            // var_dump($input);
+
+            if ($insert) {
+                set_pesan('data berhasil disimpan.');
+                redirect('barangmasuk');
             } else {
-                // Jika upload gagal
-                $error = $this->upload->display_errors();
-                set_pesan($error, false);
+                set_pesan('Opps ada kesalahan!');
                 redirect('barangmasuk/add');
             }
         }
     }
-    
-
 
     public function delete($getId)
     {

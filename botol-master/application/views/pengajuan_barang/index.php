@@ -28,7 +28,7 @@
                     <tbody>
                     <?php foreach ($requests as $request): ?>
                         <tr>
-                            <td><?= $request['tanggal'] ?></td>
+                            <td><?= date('d-m-Y', strtotime($request['tanggal'])); ?></td>
                             <td><?= $request['no_pengajuan']?>/VII/PAMBMD/2024</td>
                             <td>
                                 <?php if ($request['approved'] == 2): ?>

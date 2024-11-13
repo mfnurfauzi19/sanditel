@@ -41,18 +41,18 @@
                             <?php foreach ($peminjaman as $index => $item): ?>
                                 <tr>
                                     <td><?= $index + 1; ?></td>
-                                    <td><?= htmlspecialchars($item['nama_asset']); ?></td>
+                                    <td><?= htmlspecialchars($item['nama_asset']); ?> (<?= htmlspecialchars($item['barcode']); ?>)</td>
                                     <td><?= htmlspecialchars($item['peminjam']); ?> / <?= htmlspecialchars($item['departemen']); ?></td>
-                                    <td><?= htmlspecialchars($item['tanggal_pinjam']); ?></td>
-                                    <td><?= htmlspecialchars($item['tanggal_kembali']); ?></td>
+                                    <td><?= htmlspecialchars(date('d-m-Y', strtotime($item['tanggal_pinjam'])));?></td>
+                                    <td><?= htmlspecialchars(date('d-m-Y', strtotime($item['tanggal_kembali'])));?></td>
                                     <td><?= htmlspecialchars($item['jumlah_pinjam']); ?></td>
                                     <td><?= $item['sisa_stok']; ?></td> <!-- Menampilkan sisa stok -->
                                         <td>
                                         <a href="<?= base_url('peminjaman/edit/' . $item['id']) ?>" class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i> Edit
                                         </a>
-                                        <a href="<?= base_url('peminjaman/delete/' . $item['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?');">
-                                            <i class="fa fa-trash"></i> Hapus
+                                        <a href="<?= base_url('peminjaman/delete/' . $item['id']) ?>" class="btn btn-success btn-sm" onclick="return confirm('Data sudah dikembalikan oleh yang bersangkutan?');">
+                                            <i class="fa fa-check"></i> kembalikan
                                         </a>
                                     </td>
                                 </tr>

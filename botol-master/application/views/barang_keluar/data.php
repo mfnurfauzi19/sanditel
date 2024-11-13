@@ -26,14 +26,14 @@
                     <th>No. </th>
                     <th>No Transaksi</th>
                     <th>Tgl Keluar</th>
-                    <!-- <th>Nama Barang</th> -->
+                    <th>Nama Barang</th>
                     <th>Nama Penerima</th>
-                    <th>Alamat</th>
+                    <!-- <th>Alamat</th> -->
                     <!-- <th>Jumlah Keluar</th> -->
-                    <th>User</th>
-                    <th>Total Awal</th>
-                    <th>Diskon</th>
-                    <th>Total Akhir</th>
+                    <th>Divisi</th>
+                    <th>Total Keluar</th>
+                    <th>Petugas</th>
+                    <!-- <th>Total Akhir</th> -->
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -46,19 +46,19 @@
                         <tr>
                             <td><?= $no++; ?></td>
                             <td><?= $bk['id_barang_keluar']; ?></td>
-                            <td><?= $bk['tanggal_keluar']; ?></td>
-                            <!-- <td><?= $bk['nama_barang']; ?></td> -->
+                            <td><?= date('d-m-Y', strtotime($bk['tanggal_keluar'])); ?></td>
+                            <td><?= $bk['nama_barang']; ?></td>
                             <td><?= $bk['nama_penerima']; ?></td>
                             <td><?= $bk['alamat']; ?></td>
-                            <!-- <td><?= $bk['jumlah_keluar'] . ' ' . $bk['nama_satuan']; ?></td> -->
+                            <td><?= $bk['jumlah_keluar'] . ' ' . $bk['nama_satuan']; ?></td>
                             <td><?= $bk['nama_user']; ?></td>
-                            <td><?= price_format($bk['total_nominal']) ?></td>
+                            <!-- <td><?= price_format($bk['total_nominal']) ?></td>
                             <td><?= price_format($bk['diskon']) ?></td>
-                            <td><?= price_format($bk['grand_total']) ?></td>
+                            <td><?= price_format($bk['grand_total']) ?></td> -->
                             <td>
                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barangkeluar/delete/') . $bk['id_barang_keluar'] ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
-                                <a onclick="return confirm('Cetak surat jalan?')" href="<?= base_url('barangkeluar/faktur_surat_jalan/') . $bk['id_barang_keluar'] ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-car"></i></a>
-                                <a onclick="return confirm('Cetak surat tagihan?')" href="<?= base_url('barangkeluar/faktur_surat_tagihan/') . $bk['id_barang_keluar'] ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-book"></i></a>
+                                <!-- <a onclick="return confirm('Cetak surat jalan?')" href="<?= base_url('barangkeluar/faktur_surat_jalan/') . $bk['id_barang_keluar'] ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-car"></i></a> -->
+                                <a onclick="return confirm('Cetak surat barang keluar?')" href="<?= base_url('barangkeluar/faktur_surat_tagihan/') . $bk['id_barang_keluar'] ?>" class="btn btn-success btn-circle btn-sm"><i class="fa fa-book"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -140,5 +140,5 @@ function bersihkan()
         }
       document.getElementById("get_id").value = selected.join();
       // document.getElementById("total").innerHTML = selected.length;
-    }
+    }
 </script>

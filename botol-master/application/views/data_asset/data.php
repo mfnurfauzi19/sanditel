@@ -30,12 +30,13 @@
         <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
             <thead>
                 <tr>
-                    <th>No.</th>
+                    <!-- <th>No.</th> -->
                     <th>Nama Asset</th>
                     <th>Merk / Kode</th>
                     <th>Kategori</th>
                     <!-- <th>Quantity</th> -->
                     <th>Status</th>
+                    <th>Updated QC/Stock Opname</th>
                     <th>Kode Barcode</th>
                     <th>Action</th>
                 </tr>
@@ -44,11 +45,12 @@
                 <?php if ($dataasset) : ?>
                     <?php foreach ($dataasset as $asset) : ?>
                         <tr>
-                            <td><?= $asset['id'] ?></td>
+                            <!-- <td><?= $asset['id'] ?></td> -->
                             <td><?= $asset['nama_asset'] ?></td>
                             <td><?= $asset['merk_kode'] ?></td>
                             <td><?= $asset['kategori'] ?></td>
                             <td><?= $asset['status'] == 1 ? 'OK' : 'Rusak' ?></td>
+                            <td><?= date('d-m-Y H:i:s', strtotime($asset['updated_at'])); ?></td>
                             <td>
                                 <button class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#barcodeModal" data-barcode="<?= $asset['id'] ?>">
                                     <span class="icon"><i class="fas fa-barcode"></i></span>

@@ -39,7 +39,8 @@
                             <option value="">Pilih Barang</option>
                             <?php foreach ($barang as $item): ?>
                                 <option value="<?= $item['id']; ?>" data-stok="<?= $item['sisa_stok']; ?>">
-                                    <?= $item['nama_asset']; ?> 
+                                    <?= $item['nama_asset']; ?> || <?= $item['barcode']; ?> 
+
                                 </option>
                             <?php endforeach; ?>
                         </select>

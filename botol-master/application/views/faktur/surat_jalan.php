@@ -32,8 +32,8 @@
     <div class="row">
       <div class="col-10">
         <h2 class="page-header">
-          <i class="fas fa-car"></i> Surat Jalan
-          <small class="float-right"><b>Invoice #<?php echo $b['id_barang_keluar'];?></b></small>
+          <i class="fas fa-car"></i> Surat Barang Keluar
+          <!-- <small class="float-right"><b>Invoice #<?php echo $b['id_barang_keluar'];?></b></small> -->
         </h2>
       </div>
       <!-- /.col -->
@@ -51,17 +51,17 @@
                 <th>: <?php echo date('d F Y',strtotime($b['tanggal_keluar']));?></th>
             </tr>
             <tr>
-                <th>Kepada Yth </th>
+                <th>Diambil Oleh </th>
                 <th>: <?php echo $b['nama_penerima'];?></th>
             </tr>
             <tr>
-                <th>Dikirim Ke </th>
-                <th>: <?php echo $b['nama_penerima'];?></th>
+                <th>Divisi </th>
+                <th>: <?php echo $b['alamat'];?></th>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th></th>
                 <th>&nbsp;&nbsp;<?php echo $b['alamat'];?></th>
-            </tr>
+            </tr> -->
         </table>
       </div>
       <!-- /.col -->
@@ -152,7 +152,7 @@
       <div class="col-6">
 
         <div class="table-responsive">
-          <table border='0' align="center">
+          <!-- <table border='0' align="center">
                 <tr></br></br></br>
                     <td align="center" style="width:300px">Penerima</td>
                     <td align="center" style="width:300px">Supir</td>
@@ -173,7 +173,7 @@
                     <td align="center">(.........................................)</td>
                     <td align="center">(.........................................)</td>
                 </tr>
-            </table>
+            </table> -->
         </div>
       </div>
       <!-- /.col -->

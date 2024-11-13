@@ -32,8 +32,8 @@
     <div class="row">
       <div class="col-10">
         <h2 class="page-header">
-          <i class="fas fa-book"></i> Surat Tagihan
-          <small class="float-right"><b>Invoice #<?php echo $b['id_barang_keluar'];?></b></small>
+          <i class="fas fa-book"></i> Surat Barang Keluar
+          <!-- <small class="float-right"><b>Invoice #<?php echo $b['id_barang_keluar'];?></b></small> -->
         </h2>
       </div>
       <!-- /.col -->
@@ -50,17 +50,17 @@
                 <th>: <?php echo date('d F Y',strtotime($b['tanggal_keluar']));?></th>
             </tr>
             <tr>
-                <th>Kepada Yth </th>
+                <th>Kepada </th>
                 <th>: <?php echo $b['nama_penerima'];?></th>
             </tr>
             <tr>
-                <th>Dikirim Ke </th>
-                <th>: <?php echo $b['nama_penerima'];?></th>
+                <th>Divisi </th>
+                <th>: <?php echo $b['alamat'];?></th>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th></th>
                 <th>&nbsp;&nbsp;<?php echo $b['alamat'];?></th>
-            </tr>
+            </tr> -->
         </table>
       </div>
       <!-- /.col -->
@@ -91,7 +91,7 @@
                 <th>Jenis Barang</th>
                 <th>Satuan</th>
                 <th>Jumlah Keluar</th>
-                <th>Total</th>
+                <!-- <th>Total</th> -->
             </tr>
             </thead>
             <tbody>
@@ -103,30 +103,30 @@
                         $jenis=$i['nama_jenis'];
                         $satuan=$i['nama_satuan'];
                         $keluar=$i['jumlah_keluar'].' '.$i['nama_satuan'];
-                        $total=$i['total_nominal_dtl'];
+                        // $total=$i['total_nominal_dtl'];
                 ?>
             <tr>
                 <td style="text-align:left;"><?php echo $barang;?></td>
                 <td style="text-align:left;"><?php echo $jenis;?></td>
                 <td style="text-align:left;"><?php echo $satuan;?></td>
                 <td style="text-align:left;"><?php echo $keluar;?></td>
-                <td style="text-align:left;"><?php echo 'Rp '.number_format($total);?></td>
+                <!-- <td style="text-align:left;"><?php echo 'Rp '.number_format($total);?></td> -->
             </tr>
             <?php }?>
           </tbody>
-          <thead>
-            <tr>
+          <!-- <thead> -->
+            <!-- <tr>
                 <th colspan="4">Grand Total</th>
                 <th><?php echo 'Rp '.number_format($b['total_nominal']);?></th>
             </tr>
           </thead>
           <?php if ($b['diskon'] > 0) : ?>
-          <thead>
-            <tr>
+          <thead> -->
+            <!-- <tr>
                 <th colspan="4">Grand Total Setelah Diskon</th>
                 <th><?php echo 'Rp '.number_format($b['grand_total']);?> (<?php echo $b['diskon']?>% Discount)</th>
             </tr>
-          </thead>
+          </thead> -->
           <?php endif ?>
         </table><br/><br/>
       </div>

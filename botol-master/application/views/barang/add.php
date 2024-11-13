@@ -71,7 +71,7 @@
                         <?= form_error('satuan_id', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
-                <div class="row form-group">
+                <!-- <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="harga">Harga Barang</label>
                     <div class="col-md-9">
                         <div class="input-group">
@@ -81,7 +81,7 @@
                         <input value="<?= set_value('harga'); ?>" name="harga" id="harga" type="number" class="form-control" placeholder="Harga Barang...">
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row form-group">
                     <div class="col-md-9 offset-md-3">
                         <button type="submit" class="btn btn-primary">Simpan</button>
